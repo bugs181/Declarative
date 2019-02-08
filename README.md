@@ -25,7 +25,7 @@ let output = dc.render()
 }
 ```
 
-## Optional Context Example: ###
+## Optional Context Example: ##
 ```
 {
   user: { // element name
@@ -37,6 +37,10 @@ let output = dc.render()
 }
 ```
 
+## Output Example: ##
+```
+<div><h1>Welcome Levi</h1></div>
+```
 
 <br>
 
