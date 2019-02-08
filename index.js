@@ -1,12 +1,22 @@
 'use strict'
 
 class DeclarativeJSON {
-  constructor(template, appContext, renderFn) {
-    // TODO: Check if template is JSON or object.
+  constructor(template, appContext) {
+    if (typeof template === 'string')
+      try {
+        template = JSON.parse(template)
+      } catch (err) {
+        console.warn('[Invalid JSON]')
+        return this
+      }
+
     this.jsonTemplate = parseTemplate(template, appContext)
   }
 
   render(renderFn) {
+    if (!this.jsonTemplate)
+      return null
+
     if (typeof renderFn === 'function')
       return renderFn(this.jsonTemplate)
 
@@ -72,6 +82,11 @@ function render(element) {
 
       let openingTag = '<' + el + '>'
       let closingTag = '</' + el + '>'
+
+      if (element.tag) {
+        openingTag = '<' + element.tag + '>'
+        closingTag = '</' + element.tag + '>'
+      }
 
       if (element.tags) {
         openingTag = element.tags[0]
