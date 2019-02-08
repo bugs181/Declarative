@@ -7,6 +7,10 @@ const DC = require('./index.js')
 
 const template = {
   div: {
+    props: {
+      class: 'welcome',
+    },
+
     user: {
       condition: (ctx) => {
         if (ctx.loggedIn)

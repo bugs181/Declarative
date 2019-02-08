@@ -50,9 +50,9 @@ function parseTemplate(element, appContext) {
 
     if (typeof element[el] === 'object' && !Array.isArray(element[el])) {
       element[el].context = appContext && appContext[el] || {}
-      let condition = shouldRender(element[el], el, appContext)
+      let condition = shouldRender(element[el], appContext)
       if (condition) {
-        parsedElement[el].content = renderElement(element[el], el, condition, appContext)
+        parsedElement[el].content = renderElement(element[el], condition, appContext)
       } else if (typeof condition === 'boolean' && !condition)
         continue
       else
@@ -94,14 +94,14 @@ function parseProps(parsedElement, element) {
     parsedElement.props = element.props
 }
 
-function shouldRender(el, name, appContext) {
+function shouldRender(el, appContext) {
   if (typeof el.condition === 'function')
     return el.condition(el.context, appContext)
   else
     return el.condition
 }
 
-function renderElement(el, name, condition, appContext) {
+function renderElement(el, condition, appContext) {
   if (typeof el.content === 'object') {
     if (typeof el.content[condition] === 'function')
       return el.content[condition](el.context, appContext)
@@ -116,6 +116,7 @@ function render(element) {
       if (isInternal(el))
         continue
 
+      // If tags are turned off, replace tag with content
       if (typeof element[el].tags === 'boolean' && !element[el].tags) {
         toRender += element[el].content
         continue
@@ -134,6 +135,7 @@ function render(element) {
         closingTag = element[el].tags[1]
       }
 
+      // Parse any tag properties
       if (typeof element[el].props === 'object' && !Array.isArray(element[el])) {
         toRender += openingTag.slice(null, -1)
         for (let prop of Object.keys(element[el].props)) {
@@ -143,10 +145,12 @@ function render(element) {
       } else
         toRender += openingTag
 
+      // Recurse if needed
       if (typeof element[el].content === 'object')
         toRender += render(element[el].content)
       else
         toRender += element[el].content
+
       toRender += closingTag
     }
   }
