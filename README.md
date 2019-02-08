@@ -6,12 +6,12 @@ Declarative templating for Render frameworks such as HTML, React, React Native, 
 ## Setup: ##
 ### Node: ###
 ```
-const DC = require('DeclarativeJSON')
+const Decl = require('Declarative')
 ```
 ### Browser: ###
 ```
-<script src='js/DeclarativeJSON.js' />
-var DC = DeclarativeJSON
+<script src='js/Declarative.js' />
+var Decl = Declarative
 ```
 
 <br>
@@ -21,8 +21,8 @@ var DC = DeclarativeJSON
 const template = {}
 const appContext = {}
 
-let dc = new DC(template, appContext)
-let output = dc.render()
+let decl = new Decl(template, appContext)
+let output = decl.render()
 ```
 
 ## Template Example: ###
