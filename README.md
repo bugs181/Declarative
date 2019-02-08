@@ -33,7 +33,8 @@ let output = decl.render()
       condition: function() { return true }, // Accepts Function, Boolean, or String, returns Boolean or String
       content: function() { return 'something' }, // Accepts Function, String, or Object, returns String or Object
       tag: 'h2', // optional tag string, can be used instead of tags property.
-      tags: ['<h2>', '</h2>'] // optional tags, can be any valid HTML or framework syntax
+      tags: ['<h2>', '</h2>'], // optional tags, can be any valid HTML or framework syntax
+      props: { class: 'someElCls' }, // optional object which adds properties to tag.
     }
   }
 }
