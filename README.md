@@ -32,7 +32,8 @@ let output = dc.render()
     h2: {
       condition: function() { return true }, // Accepts Function, Boolean, or String, returns Boolean or String
       content: function() { return 'something' }, // Accepts Function, String, or Object, returns String or Object
-      tags: ['<h2>', '</h2>'] // optional tags
+      tag: 'h2', // optional tag string, can be used instead of tags property.
+      tags: ['<h2>', '</h2>'] // optional tags, can be any valid HTML
     }
   }
 }
