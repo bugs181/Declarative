@@ -5,6 +5,8 @@ Declarative JSON templating for Render frameworks
 
 ## Example use: ##
 ```
+const DC = require('DeclarativeJSON')
+
 const template = {}
 const appContext = {}
 
