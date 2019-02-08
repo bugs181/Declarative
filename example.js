@@ -23,6 +23,9 @@ const template = {
       },
 
       tags: ['<h1>', '</h1>'],
+      props: {
+        align: 'center',
+      },
     },
   },
 }
@@ -38,6 +41,11 @@ const appContext = {
 
 // The goodies
 let dc = new DC(template, appContext)
-let output = dc.render()
 
+console.log('Template: ')
+console.log(dc.template)
+console.log()
+
+console.log('Output: ')
+let output = dc.render()
 console.log(output)
