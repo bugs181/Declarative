@@ -1,5 +1,5 @@
 # DeclarativeJSON
-Declarative JSON templating for Render frameworks such as HTML, React, React Native, Vue, etc
+Declarative templating for Render frameworks such as HTML, React, React Native, Vue, etc
 
 <br>
 
