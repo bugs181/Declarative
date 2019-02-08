@@ -1,4 +1,4 @@
-# DeclarativeJSON
+# Declarative
 Declarative templating for Render frameworks such as HTML, React, React Native, Vue, etc
 
 <br>
