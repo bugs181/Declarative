@@ -1,5 +1,5 @@
 # DeclarativeJSON
-Declarative JSON templating for Render frameworks
+Declarative JSON templating for Render frameworks such as HTML, React, React Native, Vue, etc
 
 <br>
 
@@ -29,11 +29,11 @@ let output = dc.render()
 ```
 {
   div: {
-    h2: {
+    someElement: {
       condition: function() { return true }, // Accepts Function, Boolean, or String, returns Boolean or String
       content: function() { return 'something' }, // Accepts Function, String, or Object, returns String or Object
       tag: 'h2', // optional tag string, can be used instead of tags property.
-      tags: ['<h2>', '</h2>'] // optional tags, can be any valid HTML
+      tags: ['<h2>', '</h2>'] // optional tags, can be any valid HTML or framework syntax
     }
   }
 }
