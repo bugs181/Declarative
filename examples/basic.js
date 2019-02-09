@@ -3,7 +3,7 @@
 'use strict'
 
 // Setup code
-const DC = require('./index.js')
+const DC = require('../index.js')
 
 const template = {
   div: {
@@ -23,7 +23,6 @@ const template = {
       content: {
         loggedIn: (ctx) => 'Welcome ' + ctx.username,
         admin: (ctx) => 'Admin ' + ctx.username,
-        customProps: (ctx, app, props) => { props.id = 'someDiv'; props.test = true }
       },
 
       tags: ['<h1>', '</h1>'],
@@ -43,13 +42,16 @@ const appContext = {
 }
 
 
-// The goodies
+// Generate template from an object.
 let dc = new DC(template, appContext)
 
-console.log('Template: ')
-console.log(dc.template)
+// Parse the template
+console.log('Parsed Template: ')
+console.log(dc.parse())
 console.log()
 
-console.log('Output: ')
+// Render the template
 let output = dc.render()
+console.log('Output: ')
 console.log(output)
+console.log()

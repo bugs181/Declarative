@@ -3,19 +3,22 @@
 'use strict'
 
 class DeclarativeJSON {
-  constructor(template, appContext) {
-    if (typeof template === 'string')
-      try {
-        template = JSON.parse(template)
-      } catch (err) {
-        console.warn('[Invalid JSON]')
-        return this
-      }
+  constructor(template, appContext, opts) {
+    this.template = template
+    this.appContext = appContext
+    this.serialize = serialize
+    this.deserialize = deserialize
 
-    this.parsedTemplate = parseTemplate(template, appContext)
+    if (opts && typeof opts.serialize === 'function')
+      this.serialize = opts.serialize
+
+    if (opts && typeof opts.deserialize === 'function')
+      this.deserialize = opts.deserialize
   }
 
-  get template() {
+  parse() {
+    this.template = this.deserialize(this.template)
+    this.parsedTemplate = parseTemplate(this.template, this.appContext)
     return this.parsedTemplate
   }
 
@@ -108,6 +111,7 @@ function renderElement(el, condition, appContext) {
   }
 }
 
+// Sensible defaults
 function render(element) {
   let toRender = ''
 
@@ -156,6 +160,40 @@ function render(element) {
   }
 
   return toRender
+}
+
+function serialize() {
+  try {
+    return JSON.stringify(this.template, serializeReplacer, 2)
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+function serializeReplacer(key, value) {
+  if (typeof value === 'function')
+    return { type: 'Function', value: value.toString() }
+
+  return value
+}
+
+function deserialize(template) {
+  if (typeof template === 'string')
+    try {
+      template = JSON.parse(this.template, deserializeReviver)
+    } catch (err) {
+      throw new Error('[Invalid JSON]')
+    }
+
+  return template
+}
+
+function deserializeReviver(key, value) {
+  if (typeof value === 'object' && value.type === 'Function') {
+    return new Function(`return (${value.value})`).call()
+  }
+
+  return value
 }
 
 // If environment is not browser, export it (for node compatibility)
